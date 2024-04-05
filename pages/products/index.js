@@ -55,11 +55,11 @@ export default function Products() {
         </div>
       </div>
 
-    <hr className="my-8 h-px border-0 bg-gray-300" />
-    <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">Pas de produit</div>
         <div className="overflow-x-auto mx-auto px-4">
-            {products.length === 0 ? (
-                <p className="w-full text-center">No products available.</p>
+            {products.length === 0 ? (<>
+                    <hr className="my-8 h-px border-0 bg-gray-300" />
+                    <p className="w-full text-center">No products available.</p>
+                </>
             ) : (
                 <>
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
@@ -73,35 +73,37 @@ export default function Products() {
                                     {index + 1}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                                    <div className="flex">
-                                        {product.images && product.images.map((image, index) => (
-                                            <div key={index} className="h-10 w-10 mr-2">
-                                                <img
-                                                    className="h-full w-full rounded-full object-cover object-center bg-gray-200"
-                                                    src={image}
-                                                    alt={product.title}
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                    {product.title}
+
+                                    {product.images && product.images.map((image, index) => (
+
+                                        <img
+                                            className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
+                                            src={image}
+                                            alt={product.title}
+                                        />
+
+                                    ))}
+
                                 </td>
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.title}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">{formatPrice(product.price)} €</td>
-                                <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
+                                <td className="whitespace-nowrap px-4 py-2 gap-4 ">
                                     <Link
                                         href={'/products/edit/' + product._id}
                                         className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
                                     >
                                         Edit
                                     </Link>
-                                    <Link
-                                        href={'/products/delete/' + product._id}
-                                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-                                    >
-                                        Delete
-                                    </Link>
                                 </td>
+                                    <td className="whitespace-nowrap px-4 py-2 gap-4">
+                                        <Link
+                                            href={'/products/delete/' + product._id}
+                                            className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                        >
+                                            Delete
+                                        </Link>
+                                    </td>
                             </tr>
                             </tbody>
                         ))}

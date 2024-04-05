@@ -35,13 +35,10 @@ export default function Header() {
                             <Link className={location.pathname === '/products' ? active : inactive} href="/products"> Produits </Link>
                         </li>
                         <li>
-                            <Link className={location.pathname === '/categories' ? active : inactive} href="#"> About </Link>
+                            <Link className={location.pathname === '/shipment' ? active : inactive} href="/shipment"> Expédition </Link>
                         </li>
                         <li>
-                            <Link className={location.pathname === '/orders' ? active : inactive} href="#"> About </Link>
-                        </li>
-                        <li>
-                            <Link className={location.pathname === '/settings' ? active : inactive} href="#"> About </Link>
+                            <Link className={location.pathname === '/order' ? active : inactive} href="/order"> Commandes </Link>
                         </li>
                     </ul>
                 </nav>
