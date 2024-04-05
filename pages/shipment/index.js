@@ -41,7 +41,7 @@ export default function Command() {
                 </div>
             </div>
         </div>
-        
+
         <div className="overflow-x-auto mx-auto px-4">
             {Command.length === 0 ? (<>
                     <hr className="my-8 h-px border-0 bg-gray-300" />

@@ -76,7 +76,7 @@ export default function Products() {
 
                                     {product.images && product.images.map((image, index) => (
 
-                                        <img
+                                        <img key={image._id}
                                             className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
                                             src={image}
                                             alt={product.title}
