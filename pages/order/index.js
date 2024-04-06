@@ -1,10 +1,11 @@
 import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {session} from "next-auth/core/routes";
+import {useSession} from "next-auth/react";
 
 
 export default function Order() {
+    const { data: session } = useSession()
     const [Order, setOrder] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);

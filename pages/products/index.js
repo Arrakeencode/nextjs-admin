@@ -1,12 +1,13 @@
 import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {session} from "next-auth/core/routes";
+import {useSession} from "next-auth/react";
 
 const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 export default function Products() {
+    const { data: session } = useSession()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
