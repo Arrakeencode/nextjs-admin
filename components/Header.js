@@ -1,4 +1,4 @@
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -43,11 +43,9 @@ export default function Header() {
                     </ul>
                 </nav>
 
-                <div className="flex items-center gap-4">
+                <div className="flex justify-center items-center gap-4">
                     <div className="sm:flex sm:gap-4">
-                        <div className="h-10 w-10">
-                            <img className="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt="profile"/>
-                        </div>
+                        <button className="h-10" onClick={() => signOut()}>Se déconnecter</button>
                     </div>
 
                     <button

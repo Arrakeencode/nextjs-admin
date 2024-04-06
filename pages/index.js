@@ -1,8 +1,15 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import Register from "@/components/Register";
+import Login from "@/components/Login";
+import {useState} from "react";
 
 export default function Home() {
   const { data: session } = useSession()
-  if(session) {
+  const [login, setLogin] = useState(false);
+  console.log(session)
+  console.log(login)
+
+  if(session && session.userData.isAdmin) {
     return <>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="sm:flex sm:items-center sm:justify-between">
@@ -59,15 +66,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      Signed in as {session.user.email} <br/>
-      <button onClick={() => signOut()}>Sign out</button>
     </>
   }
-  return (
-    <div className="flex flex-col min-h-screen justify-center items-center">
-      <h1 className="text-center text-4xl">Bienvenue sur la page admin</h1>
-      <p>Connectez vous pour voir la page</p>
-      <button onClick={() => signIn()}>Google</button>
-    </div>
+  return (<>
+    {login ? <Login setLogin={setLogin} /> : <Register setLogin={setLogin} />}
+  </>
   );
 }
