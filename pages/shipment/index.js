@@ -102,4 +102,13 @@ export default function Command() {
         </div>
 
     </>
-}}
+}  else if (session && !session.userData.isAdmin) {
+        return<>
+            <div className="bg-black flex justify-center items-center h-screen">
+                <div className="text-white text-center">
+                    <h1 className="text-3xl font-bold">Vous ne pouvez pas accéder à cette page</h1>
+                </div>
+            </div>
+        </>
+    }
+}

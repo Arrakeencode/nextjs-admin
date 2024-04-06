@@ -2,6 +2,8 @@ import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useSession} from "next-auth/react";
+import Spinner from "@/components/Spinner";
+
 
 const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -20,9 +22,9 @@ export default function Products() {
         });
     }, []);
 
-    const productsToDisplay = products
     if(session && session.userData.isAdmin) {
     return <>
+
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="text-center sm:text-left">
@@ -58,7 +60,12 @@ export default function Products() {
       </div>
 
         <div className="overflow-x-auto mx-auto px-4">
-            {products.length === 0 ? (<>
+            {loading ? (
+                    <div className="flex justify-center items-center h-screen">
+                        <Spinner />
+                    </div>
+                ) :
+            products.length === 0 ? (<>
                     <hr className="my-8 h-px border-0 bg-gray-300" />
                     <p className="w-full text-center">No products available.</p>
                 </>
@@ -68,7 +75,7 @@ export default function Products() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {productsToDisplay.map((product, index) => (
+                        {products.map((product, index) => (
                             <tbody className="divide-y divide-gray-200" key={product._id}>
                             <tr>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
@@ -116,4 +123,13 @@ export default function Products() {
         </div>
 
    </>
-}}
+}  else if (session && !session.userData.isAdmin) {
+        return<>
+            <div className="bg-black flex justify-center items-center h-screen">
+                <div className="text-white text-center">
+                    <h1 className="text-3xl font-bold">Vous ne pouvez pas accéder à cette page</h1>
+                </div>
+            </div>
+        </>
+    }
+}

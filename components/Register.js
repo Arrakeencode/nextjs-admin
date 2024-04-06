@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Register ({setLogin})  {
-    const [error, setError] = useState("");
-
     const handleRegister = () => {
         setLogin(true);
     };
@@ -38,14 +37,21 @@ export default function Register ({setLogin})  {
                     password,
                 }),
             });
-            if (res.status === 400) {
-                setError("This email is already registered");
+            if(res.ok){
+                toast.success('Votre compte a été crée')
+                setLogin(true);
             }
-            if (res.status === 200) {
-                setError("");
+            else if (res.status === 400) {
+                toast.error("This email is already registered");
+            }
+            else if (res.status === 500) {
+                toast.error("Ce compte existe déja");
+            }
+            else if (res.status === 200) {
+                toast.error("");
             }
         } catch (error) {
-            setError("Error, try again");
+            toast.error("Erreur");
         }
     };
 
@@ -72,7 +78,6 @@ export default function Register ({setLogin})  {
                         >
                             Valider
                         </button>
-                        <p className="text-red-600 text-[16px] mb-4">{error && error}</p>
                     </form>
                     <div className="text-center text-gray-500 mt-4">- OU -</div>
                     <button

@@ -6,7 +6,7 @@ import {useSession} from "next-auth/react";
 
 export default function Order() {
     const { data: session } = useSession()
-    const [Order, setOrder] = useState([]);
+    const [order, setOrder] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -64,7 +64,7 @@ export default function Order() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {Order.map((product, index) => (
+                        {order.map((product, index) => (
                             <tbody className="divide-y divide-gray-200" key={product._id}>
                             <tr>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
@@ -114,6 +114,14 @@ export default function Order() {
                 </>
             )}
         </div>
-
     </>
-}}
+}  else if (session && !session.userData.isAdmin) {
+        return<>
+            <div className="bg-black flex justify-center items-center h-screen">
+                <div className="text-white text-center">
+                    <h1 className="text-3xl font-bold">Vous ne pouvez pas accéder à cette page</h1>
+                </div>
+            </div>
+        </>
+    }
+}
