@@ -1,34 +1,35 @@
-import {User} from "@/models/User";
+import { User } from "@/models/User";
 import { mongooseConnect } from "@/lib/mongoose";
-import bcrypt from "bcryptjs"
-import {NextResponse} from "next/server";
+import bcrypt from "bcryptjs";
 
-const POST = async (request) => {
-    const { email, password } = await request.body;
+export default async function handler(req, res) {
+    if (req.method === "POST") {
+        const { email, password } = req.body;
 
-    await mongooseConnect();
+        try {
+            await mongooseConnect();
 
-    try {
-        const existingUser = await User.findOne({ email });
+            const existingUser = await User.findOne({ email });
 
-        if (existingUser) {
-            return new NextResponse("Email is already in use", { status: 400 });
+            if (existingUser) {
+                return res.status(400).json({ error: "Email is already in use" });
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const newUser = new User({
+                email,
+                password: hashedPassword,
+                admin: true,
+            });
+
+            await newUser.save();
+            return res.status(200).json({ message: "User is registered" });
+        } catch (err) {
+            console.error("Error registering user:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
-
-        const hashedPassword = await bcrypt.hash(password, 5);
-        const newUser = new User({
-            email,
-            password: hashedPassword,
-            admin: true,
-        });
-
-        await newUser.save();
-        return new NextResponse("user is registered", { status: 200 });
-    } catch (err) {
-        return new NextResponse(err, {
-            status: 500,
-        });
+    } else {
+        return res.status(405).json({ error: "Method Not Allowed" });
     }
-};
-
-export default POST;
+}
