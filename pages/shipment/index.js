@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {session} from "next-auth/core/routes";
 
 
 export default function Command() {
@@ -26,7 +27,7 @@ export default function Command() {
 
     const CommandToDisplay = Command
     console.log(CommandToDisplay)
-
+    if(session && session.userData.isAdmin) {
     return <>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
             <div className="sm:flex sm:items-center sm:justify-between">
@@ -100,4 +101,4 @@ export default function Command() {
         </div>
 
     </>
-}
+}}
