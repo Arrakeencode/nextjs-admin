@@ -3,16 +3,22 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useSession} from "next-auth/react";
 import Spinner from "@/components/Spinner";
-
-
-const formatPrice = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
 export default function Products() {
     const { data: session } = useSession()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 10;
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const totalPages = Math.ceil(products.length / productsPerPage);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     useEffect(() => {
         axios.get('/api/products').then(response => {
@@ -61,7 +67,7 @@ export default function Products() {
 
         <div className="overflow-x-auto mx-auto px-4">
             {loading ? (
-                    <div className="flex justify-center items-center h-screen">
+                    <div className="absolute inset-0 flex justify-center items-center">
                         <Spinner />
                     </div>
                 ) :
@@ -75,7 +81,7 @@ export default function Products() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {products.map((product, index) => (
+                        {currentProducts.map((product, index) => (
                             <tbody className="divide-y divide-gray-200" key={product._id}>
                             <tr>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
@@ -86,9 +92,9 @@ export default function Products() {
                                     {product.images && product.images.map((image, index) => (
 
                                         <img key={image._id}
-                                            className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
-                                            src={image}
-                                            alt={product.title}
+                                             className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
+                                             src={image}
+                                             alt={product.title}
                                         />
 
                                     ))}
@@ -96,7 +102,7 @@ export default function Products() {
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.title}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{formatPrice(product.price)} €</td>
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.price} €</td>
                                 <td className="whitespace-nowrap px-4 py-2 gap-4 ">
                                     <Link
                                         href={'/products/edit/' + product._id}
@@ -105,26 +111,36 @@ export default function Products() {
                                         Edit
                                     </Link>
                                 </td>
-                                    <td className="whitespace-nowrap px-4 py-2 gap-4">
-                                        <Link
-                                            href={'/products/delete/' + product._id}
-                                            className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-                                        >
-                                            Delete
-                                        </Link>
-                                    </td>
+                                <td className="whitespace-nowrap px-4 py-2 gap-4">
+                                    <Link
+                                        href={'/products/delete/' + product._id}
+                                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                    >
+                                        Delete
+                                    </Link>
+                                </td>
                             </tr>
                             </tbody>
                         ))}
                     </table>
-
+                    <div className="flex justify-center mt-8">
+                        {Array.from({length: totalPages}, (_, i) => (
+                            <button
+                                key={i}
+                                className={`mx-2 px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                onClick={() => handlePageChange(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
                 </>
             )}
         </div>
 
-   </>
-}  else if (session && !session.userData.isAdmin) {
-        return<>
+    </>
+    } else if (session && !session.userData.isAdmin) {
+        return <>
             <div className="bg-black flex justify-center items-center h-screen">
                 <div className="text-white text-center">
                     <h1 className="text-3xl font-bold">Vous ne pouvez pas accéder à cette page</h1>

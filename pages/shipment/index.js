@@ -2,13 +2,26 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useSession} from "next-auth/react";
+import Spinner from "@/components/Spinner";
+import toast from "react-hot-toast";
 
 
 export default function Command() {
-    const [Command, setCommand] = useState([]);
+    const [command, setCommand] = useState([]);
     const { data: session } = useSession()
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const commandsPerPage = 6;
+
+    const indexOfLastCommand = currentPage * commandsPerPage;
+    const indexOfFirstCommand = indexOfLastCommand - commandsPerPage;
+
+    const currentCommand = command.slice(indexOfFirstCommand, indexOfLastCommand);
+
+    const totalPages = Math.ceil(command.length / commandsPerPage);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     useEffect(() => {
         axios.get('/api/command').then(response => {
@@ -19,15 +32,21 @@ export default function Command() {
     }, []);
 
     const updateShippedStatus = async (id) => {
-        await axios.put('/api/command', { shipped: true, _id: id });
-        // Actualiser les données après la mise à jour
-        axios.get('/api/command').then(response => {
-            setCommand(response.data);
-        });
+        try {
+            await axios.put('/api/command', { shipped: true, _id: id });
+            toast.success("Le statut d'expédition a été mis à jour avec succès.")
+            axios.get('/api/command')
+                .then(response => {
+                    setCommand(response.data);
+                })
+                .catch(error => {
+                    toast.error("Une erreur est survenue lors de la récupération des données après la mise à jour.");
+                });
+        } catch (error) {
+            toast.error("Une erreur est survenue");
+        }
     };
 
-    const CommandToDisplay = Command
-    console.log(CommandToDisplay)
     if(session && session.userData.isAdmin) {
     return <>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -45,7 +64,12 @@ export default function Command() {
         </div>
 
         <div className="overflow-x-auto mx-auto px-4">
-            {Command.length === 0 ? (<>
+            {loading ? (
+                    <div className="absolute inset-0 flex justify-center items-center">
+                        <Spinner />
+                    </div>
+                ) :
+            command.length === 0 ? (<>
                     <hr className="my-8 h-px border-0 bg-gray-300" />
                     <p className="w-full text-center">No products available.</p>
                 </>
@@ -55,55 +79,66 @@ export default function Command() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {Command.map((product, index) => (
-                            <tbody className="divide-y divide-gray-200" key={product._id}>
+                        {currentCommand.map((command, index) => (
+                            <tbody className="divide-y divide-gray-200" key={command._id}>
                             <tr>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {index + 1}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {product.name}
+                                    {command.name}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {product.address}
+                                    {command.address}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {product.city}
+                                    {command.city}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {product.zip}
+                                    {command.zip}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {product.country}
+                                    {command.country}
                                 </td>
-                                {product.line_items.map((item, index) => (
+                                {command.line_items.map((item, index) => (
                                     <div key={item._id} className="flex">
-                                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                                        {item.quantity}
+                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                                            {item.quantity}
 
-                                    </td>
-                                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                                        {item.price_data.product_data.name}
-                                    </td>
+                                        </td>
+                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                                            {item.price_data.product_data.name}
+                                        </td>
                                     </div>
                                 ))}
                                 <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
 
                                 </td>
                                 <td>
-                                    <button onClick={() => updateShippedStatus(product._id)}>Mark as Shipped</button>
+                                    <button onClick={() => updateShippedStatus(command._id)}>Mark as Shipped</button>
                                 </td>
                             </tr>
                             </tbody>
                         ))}
                     </table>
+                    <div className="flex justify-center mt-8">
+                        {Array.from({length: totalPages}, (_, i) => (
+                            <button
+                                key={i}
+                                className={`mx-2 px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                onClick={() => handlePageChange(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
                 </>
             )}
         </div>
 
     </>
-}  else if (session && !session.userData.isAdmin) {
-        return<>
+    } else if (session && !session.userData.isAdmin) {
+        return <>
             <div className="bg-black flex justify-center items-center h-screen">
                 <div className="text-white text-center">
                     <h1 className="text-3xl font-bold">Vous ne pouvez pas accéder à cette page</h1>
