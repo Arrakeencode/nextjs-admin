@@ -4,16 +4,23 @@ import {useRouter} from "next/router";
 import Spinner from "@/components/Spinner";
 import { ReactSortable } from "react-sortablejs";
 
-export default function Product() {
+export default function Product({
+                                    _id,
+                                    title: existingTitle,
+                                    description: existingDescription,
+                                    price: existingPrice,
+                                    images: existingImages,
+                                    category: selectedCategory,
+                                }) {
 
     const [redirect, setRedirect] = useState(false)
     const router = useRouter()
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [images, setImages] = useState([]);
+    const [title, setTitle] = useState(existingTitle || '');
+    const [description, setDescription] = useState(existingDescription || '');
+    const [price, setPrice] = useState(existingPrice || '');
+    const [images, setImages] = useState(existingImages || []);
+    const [category, setCategory] = useState(selectedCategory || '');
 
     const [isUploading, setIsUploading] = useState(false)
     const uploadImagesQueue = [];
