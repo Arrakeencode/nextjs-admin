@@ -40,7 +40,11 @@ export default function Header() {
 
                 <div className="flex justify-center items-center gap-4">
                     <div className="sm:flex sm:gap-4">
-                        <button className="h-10" onClick={() => signOut({redirect:true})}>Se déconnecter</button>
+                        <button className="h-10" onClick={() => {
+                            signOut({ redirect: false }).then(() => {
+                                router.push("/"); // Redirect to the dashboard page after signing out
+                            });
+                        }}>Se déconnecter</button>
                     </div>
 
                     <button
