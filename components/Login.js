@@ -7,6 +7,7 @@ export default function LoginPage({setLogin}) {
         e.preventDefault();
 
         await signIn("credentials", { email, password, callbackUrl: "/" });
+        setLogin(false);
 
     }
 
