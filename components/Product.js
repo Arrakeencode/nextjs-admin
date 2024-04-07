@@ -90,7 +90,7 @@ export default function Product({
                            className="mb-1 block text-sm font-medium text-gray-700 after:ml-0.5 after:text-red-500 after:content-['*']">Titre</label>
                     <input type="text" id="example3"
                            className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                           placeholder="you@email.com"
+                           placeholder="Raquette Xtry"
                            value={title}
                            onChange={event => setTitle(event.target.value)}/>
 
@@ -98,12 +98,16 @@ export default function Product({
             </div>
             <div className="mx-auto my-4">
                 <div>
-                    <label for="example3"
+                    <label htmlFor="example3"
                            className="mb-1 block text-sm font-medium text-gray-700 after:ml-0.5 after:text-red-500 after:content-['*']">Categorie</label>
-                    <select type="text" id="example3"
+                    <select id="example3"
                             className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                            placeholder="you@email.com">
-                        <option></option>
+                            value={category} onChange={event => setCategory(event.target.value)}
+                            >
+                        <option value="raquette">Raquette</option>
+                        <option value="balle">Balle de Tennis</option>
+                        <option value="sac">Sac</option>
+                        <option value="cordage">Cordage</option>
                     </select>
 
                 </div>
@@ -125,7 +129,6 @@ export default function Product({
                         </label>
                         <input id="fileInput" type="file" className="hidden" accept="image/*" multiple
                                onChange={uploadImages}/>
-                        <input type="file"/>
                     </div>
                 </div>
 
@@ -171,7 +174,7 @@ export default function Product({
                            className="mb-1 block text-sm font-medium text-gray-700 after:ml-0.5 after:text-red-500 after:content-['*']">Description</label>
                     <textarea rows={5} type="text" id="example3"
                               className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                              placeholder="you@email.com"
+                              placeholder="Superbe raquette de tennis"
                               value={description}
                               onChange={event => setDescription(event.target.value)}/>
                 </div>
@@ -182,19 +185,12 @@ export default function Product({
                            className="mb-1 block text-sm font-medium text-gray-700 after:ml-0.5 after:text-red-500 after:content-['*']">Prix</label>
                     <input type="number" id="example3"
                            className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                           placeholder="you@email.com"
+                           placeholder="0"
                            value={price}
                            onChange={event => setPrice(event.target.value)}/>
                 </div>
             </div>
-            <select value={category} onChange={event => setCategory(event.target.value)}>
-                <option value="">ko</option>
-                <option value="raquette">r</option>
-                <option value="balle">b</option>
-                <option value="sac">s</option>
-                <option value="cordage">c</option>
-            </select>
-            <button type="submit">save</button>
+            <button type="submit">Enregistrer</button>
         </form>
     );
 }

@@ -6,16 +6,18 @@ import Spinner from "@/components/Spinner";
 export default function Products() {
     const { data: session } = useSession()
     const [products, setProducts] = useState([]);
+    const [currentProducts, setCurrentProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 10;
+    const [totalPages, setTotalPages] = useState(0);
+    const [titleFilter, setTitleFilter] = useState('');
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    const totalPages = Math.ceil(products.length / productsPerPage);
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -27,6 +29,21 @@ export default function Products() {
             setLoading(false);
         });
     }, []);
+
+
+
+    useEffect(() => {
+        if (titleFilter !== '') {
+            const filteredProducts = products.filter((product) =>
+                product.title.toLowerCase().includes(titleFilter.toLowerCase())
+            );
+            setTotalPages(Math.ceil(filteredProducts.length / productsPerPage))
+            setCurrentProducts(filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct));
+        } else {
+            setTotalPages(Math.ceil(products.length / productsPerPage))
+            setCurrentProducts(products.slice(indexOfFirstProduct, indexOfLastProduct));
+        }
+    }, [titleFilter, indexOfLastProduct, products, indexOfFirstProduct, productsPerPage]);
 
     if(session && session.userData.isAdmin) {
     return <>
@@ -77,6 +94,12 @@ export default function Products() {
                 </>
             ) : (
                 <>
+                    <input
+                        type="text"
+                        placeholder="Rechercher par titre"
+                        value={titleFilter}
+                        onChange={(e) => setTitleFilter(e.target.value)}
+                    />
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
                         <thead>
                         {/* Table headers here */}
