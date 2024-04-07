@@ -111,7 +111,6 @@ export default function Header() {
                                             Acceuil
                                         </Link>
                                     </li>
-
                                     <li>
                                         <Link
                                             className={` ${pathname === '/products' ? active : inactive}`}
