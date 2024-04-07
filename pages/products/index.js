@@ -16,8 +16,6 @@ export default function Products() {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-
-
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -29,8 +27,6 @@ export default function Products() {
             setLoading(false);
         });
     }, []);
-
-
 
     useEffect(() => {
         if (titleFilter !== '') {

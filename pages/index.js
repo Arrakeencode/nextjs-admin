@@ -7,8 +7,6 @@ import Link from "next/link";
 export default function Home() {
   const {data: session} = useSession()
   const [login, setLogin] = useState(false);
-  console.log(session)
-  console.log(login)
 
   if (session && session.userData.isAdmin) {
     return <>

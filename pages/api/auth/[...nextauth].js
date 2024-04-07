@@ -3,9 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {mongooseConnect} from "@/lib/mongoose";
 import {User} from "@/models/User";
 import bcrypt from "bcryptjs";
-
-
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -16,22 +13,16 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        // const user1 = { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         const email = credentials?.email;
         const password = credentials?.password;
 
         await mongooseConnect()
         const user = await User.findOne({email});
-        console.log(user)
         const passwordOk = user && bcrypt.compareSync(password, user.password);
-        // if (user1) {
-        //   return user1;
-        // }
-        if (passwordOk) {
 
+        if (passwordOk) {
           return user;
         }
-
         return null
       }
     })
@@ -46,20 +37,14 @@ export const authOptions = {
       return token
     },
     session: async ({ session, token }) => {
-      // here we put session.useData and put inside it whatever you want to be in the session
-      // here try to console.log(token) and see what it will have
-      // sometimes the user get stored in token.uid.userData
-      // sometimes the user data get stored in just token.uid
       session.userData = {
         isAdmin: token.uid.admin,
-
       }
-
       return session;
     },
   },
   session: {
-    jwt: true, // Enable JSON Web Tokens for sessions
+    jwt: true,
   },
 }
 
