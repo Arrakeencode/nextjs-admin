@@ -76,13 +76,14 @@ export default function Order() {
                 </>
             ) : (
                 <>
+                    <div className="overflow-x-auto">
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {currentOrder.map((order, index) => (
-                            <tbody className="divide-y divide-gray-200" key={order._id}>
-                            <tr>
+                            <tbody className="divide-y divide-gray-200">
+                            {currentOrder.map((order, index) => (
+                            <tr key={order._id}>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {index + 1}
                                 </td>
@@ -124,9 +125,11 @@ export default function Order() {
                                     </Link>
                                 </td>
                             </tr>
+                            ))}
                             </tbody>
-                        ))}
+
                     </table>
+                        </div>
                     <div className="flex justify-center mt-8">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button

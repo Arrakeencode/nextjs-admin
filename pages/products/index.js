@@ -100,13 +100,15 @@ export default function Products() {
                         value={titleFilter}
                         onChange={(e) => setTitleFilter(e.target.value)}
                     />
+                    <div className="overflow-x-auto">
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {currentProducts.map((product, index) => (
-                            <tbody className="divide-y divide-gray-200" key={product._id}>
-                            <tr>
+
+                            <tbody className="divide-y divide-gray-200">
+                            {currentProducts.map((product, index) => (
+                            <tr key={product._id}>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {index + 1}
                                 </td>
@@ -143,9 +145,11 @@ export default function Products() {
                                     </Link>
                                 </td>
                             </tr>
+                            ))}
                             </tbody>
-                        ))}
+
                     </table>
+                        </div>
                     <div className="flex justify-center mt-8">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button

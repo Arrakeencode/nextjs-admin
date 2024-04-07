@@ -75,13 +75,14 @@ export default function Command() {
                 </>
             ) : (
                 <>
+                <div className="overflow-x-auto">
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                        {currentCommand.map((command, index) => (
                             <tbody className="divide-y divide-gray-200" key={command._id}>
-                            <tr>
+                            {currentCommand.map((command, index) => (
+                            <tr key={command._id}>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {index + 1}
                                 </td>
@@ -118,9 +119,10 @@ export default function Command() {
                                     <button onClick={() => updateShippedStatus(command._id)}>Mark as Shipped</button>
                                 </td>
                             </tr>
+                            ))}
                             </tbody>
-                        ))}
                     </table>
+                </div>
                     <div className="flex justify-center mt-8">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button
