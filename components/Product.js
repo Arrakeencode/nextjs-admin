@@ -3,6 +3,7 @@ import axios from "axios";
 import {useRouter} from "next/router";
 import Spinner from "@/components/Spinner";
 import { ReactSortable } from "react-sortablejs";
+import toast from "react-hot-toast";
 
 export default function Product({
                                     _id,
@@ -34,11 +35,16 @@ export default function Product({
             await Promise.all(uploadImagesQueue);
         }
 
-        const data = {title, description, price, images, category}
-        if (_id) {
-            await axios.put('/api/products', { ...data, _id });
-        } else {
-            await axios.post('/api/products', data);
+        if (uploadImagesQueue.length >= 2) {
+            const data = {title, description, price, images, category}
+            if (_id) {
+                await axios.put('/api/products', {...data, _id});
+            } else {
+                await axios.post('/api/products', data);
+            }
+        }
+        else{
+            toast.error('Minimum 2 images')
         }
 
         setRedirect(true)
