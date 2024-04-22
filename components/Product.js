@@ -35,7 +35,11 @@ export default function Product({
         }
 
         const data = {title, description, price, images, category}
-        await axios.post('/api/products', data)
+        if (_id) {
+            await axios.put('/api/products', { ...data, _id });
+        } else {
+            await axios.post('/api/products', data);
+        }
 
         setRedirect(true)
     }
