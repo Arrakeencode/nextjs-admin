@@ -39,15 +39,15 @@ export default function Product({
             const data = {title, description, price, images, category}
             if (_id) {
                 await axios.put('/api/products', {...data, _id});
+                setRedirect(true)
             } else {
                 await axios.post('/api/products', data);
+                setRedirect(true)
             }
         }
         else{
             toast.error('Minimum 2 images')
         }
-
-        setRedirect(true)
     }
 
     async function uploadImages(event){
