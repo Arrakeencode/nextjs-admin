@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             const newUser = new User({
                 email,
                 password: hashedPassword,
-                admin: true,
+                admin: false,
             });
 
             await newUser.save();

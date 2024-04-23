@@ -42,7 +42,7 @@ export default function Register ({setLogin})  {
                 setLogin(true);
             }
             else if (res.status === 400) {
-                toast.error("This email is already registered");
+                toast.error("Cette email existe déja");
             }
             else if (res.status === 500) {
                 toast.error("Ce compte existe déja");

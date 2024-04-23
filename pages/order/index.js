@@ -30,32 +30,14 @@ export default function Order() {
         });
     }, []);
 
-    const updateShippedStatus = async (id) => {
-        await axios.put('/api/order', { shipped: true, _id: id });
-        // Actualiser les données après la mise à jour
-        axios.get('/api/order').then(response => {
-            setOrder(response.data);
-        });
-    };
-
-    const deleteProduct = async (id) => {
-        await axios.delete(`/api/order/${id}`);
-
-        axios.get('/api/order').then(response => {
-            setOrder(response.data);
-        });
-    }
-
-
-
     if(session && session.userData.isAdmin) {
     return <>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
             <div className="sm:flex sm:items-center sm:justify-between">
                 <div className="text-center sm:text-left">
-                    <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Tout les produits</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Toutes les commandes expédiées</h1>
 
-                    <p className="mt-1.5 text-sm text-gray-500">Regarder les stats de votre busness</p>
+                    <p className="mt-1.5 text-sm text-gray-500">Archives des commandes</p>
                 </div>
 
                 <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
@@ -72,7 +54,7 @@ export default function Order() {
                 ) :
             order.length === 0 ? (<>
                     <hr className="my-8 h-px border-0 bg-gray-300" />
-                    <p className="w-full text-center">No products available.</p>
+                    <p className="w-full text-center">Aucune commande disponible</p>
                 </>
             ) : (
                 <>
@@ -102,8 +84,8 @@ export default function Order() {
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {order.country}
                                 </td>
-                                {order.line_items.map((item, index) => (
-                                    <div key={item._id} className="flex">
+                                {order.line_items.map((item) => (
+                                    <div key={item._id} className="flex py-1">
                                         <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
                                             {item.quantity}
 
@@ -113,15 +95,12 @@ export default function Order() {
                                         </td>
                                     </div>
                                 ))}
-                                <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-
-                                </td>
                                 <td>
                                     <Link
                                         href={'/order/delete/' + order._id}
-                                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700 pb-3 pt-3"
                                     >
-                                        Delete
+                                        Supprimer
                                     </Link>
                                 </td>
                             </tr>

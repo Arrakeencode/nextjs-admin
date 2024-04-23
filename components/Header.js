@@ -52,7 +52,7 @@ export default function Header() {
                     <div className="sm:flex sm:gap-4">
                         <button className="h-10" onClick={() => {
                             signOut({ redirect: false }).then(() => {
-                                router.push("/"); // Redirect to the dashboard page after signing out
+                                router.push("/");
                             });
                         }}>Se déconnecter</button>
                     </div>
@@ -63,7 +63,6 @@ export default function Header() {
                             className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
                         >
                             {isMobileNavOpen ? (
-                                // X icon for clos
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-tennis"
@@ -79,7 +78,6 @@ export default function Header() {
                                     />
                                 </svg>
                             ) : (
-                                // Menu icon for open
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-tennis"
@@ -120,7 +118,6 @@ export default function Header() {
                                             Produits
                                         </Link>
                                     </li>
-
                                     <li>
                                         <Link
                                             className={` ${pathname === '/shipment' ? active : inactive}`}
@@ -139,8 +136,6 @@ export default function Header() {
                                             Commandes
                                         </Link>
                                     </li>
-
-
                                 </ul>
                             </nav>
                         </div>

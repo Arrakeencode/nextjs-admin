@@ -49,7 +49,7 @@ export default function Products() {
           <div className="text-center sm:text-left">
             <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Tout les produits</h1>
 
-            <p className="mt-1.5 text-sm text-gray-500">Regarder les stats de votre busness</p>
+            <p className="mt-1.5 text-sm text-gray-500">Gérez vos produits ici</p>
           </div>
 
           <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
@@ -86,7 +86,7 @@ export default function Products() {
                 ) :
             products.length === 0 ? (<>
                     <hr className="my-8 h-px border-0 bg-gray-300" />
-                    <p className="w-full text-center">No products available.</p>
+                    <p className="w-full text-center">Pas de produit disponible</p>
                 </>
             ) : (
                 <>
@@ -95,6 +95,7 @@ export default function Products() {
                         placeholder="Rechercher par titre"
                         value={titleFilter}
                         onChange={(e) => setTitleFilter(e.target.value)}
+                        className="w-1/4 rounded-md border-gray-700 py-2.5 pe-10 shadow-sm sm:text-sm mb-4"
                     />
                     <div className="overflow-x-auto">
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
@@ -129,7 +130,7 @@ export default function Products() {
                                         href={'/products/edit/' + product._id}
                                         className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
                                     >
-                                        Edit
+                                        Editer
                                     </Link>
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 gap-4">
@@ -137,7 +138,7 @@ export default function Products() {
                                         href={'/products/delete/' + product._id}
                                         className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
                                     >
-                                        Delete
+                                        Supprimer
                                     </Link>
                                 </td>
                             </tr>

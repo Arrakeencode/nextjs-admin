@@ -47,5 +47,4 @@ export default function LoginPage({setLogin}) {
                     </button>
                 </div>
             </div>
-
 )}

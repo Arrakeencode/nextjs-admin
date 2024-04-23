@@ -37,8 +37,8 @@ export default function EditOrder() {
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-medium text-secondary-900">Delete {orderInfo?.name}</h3>
-                            <div class="mt-2 text-sm text-secondary-500">Are you sure you want to delete this Order? This action cannot be undone.</div>
+                            <h3 class="text-lg font-medium text-secondary-900">Supprimer {orderInfo?.name}</h3>
+                            <div class="mt-2 text-sm text-secondary-500">Êtes-vous sûr de vouloir supprimer cette commande ?</div>
                         </div>
                     </div>
                     <div class="mt-5 flex justify-end gap-3">

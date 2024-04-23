@@ -37,8 +37,8 @@ export default function EditProduct() {
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-medium text-secondary-900">Delete {productInfo?.title}</h3>
-                            <div class="mt-2 text-sm text-secondary-500">Are you sure you want to delete this product? This action cannot be undone.</div>
+                            <h3 class="text-lg font-medium text-secondary-900">Supprimer {productInfo?.title}</h3>
+                            <div class="mt-2 text-sm text-secondary-500">Êtes-vous sûr de vouloir supprimer ce produit ?</div>
                         </div>
                     </div>
                     <div class="mt-5 flex justify-end gap-3">

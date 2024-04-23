@@ -29,9 +29,7 @@ export default function Product({
     async function createProduct (event) {
         event.preventDefault();
 
-        // Check if there are new images to upload
         if (isUploading) {
-            // Wait for the images to finish uploading
             await Promise.all(uploadImagesQueue);
         }
 
@@ -58,9 +56,9 @@ export default function Product({
             setIsUploading(true);
             for (const file of files) {
                 const data = new FormData();
+
                 data.append('file', file);
 
-                // Use the axios.post method and push the promise to the queue
                 uploadImagesQueue.push(
                     axios.post('/api/upload', data)
                         .then(res => {
@@ -124,7 +122,7 @@ export default function Product({
             </div>
             <div className="flex flex-col gap-4">
                 <div className="flex items-center">
-                    <label className="text-lg font-medium text-gray-700 mr-2">Images</label>
+                    <label className="font-medium text-gray-700 mr-2 after:ml-0.5 after:text-red-500 after:content-['*']">Images</label>
                     <div className="flex items-center justify-center rounded-lg">
                         <label htmlFor="fileInput"
                                className="flex items-center gap-1.5 px-3 py-2 text-center text-sm font-medium text-gray-500 border cursor-pointer hover:border-primary-400">
@@ -200,7 +198,7 @@ export default function Product({
                            onChange={event => setPrice(event.target.value)}/>
                 </div>
             </div>
-            <button type="submit">Enregistrer</button>
+            <button className="inline-block rounded bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700" type="submit">Enregistrer</button>
         </form>
     );
 }
