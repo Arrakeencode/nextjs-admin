@@ -63,34 +63,57 @@ export default function Order() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                            <tbody className="divide-y divide-gray-200">
-                            {currentOrder.map((order, index) => (
+                        <tbody className="divide-y divide-gray-200">
+                        <tr>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Numéro
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Nom complet
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Adresse
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Ville
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Zip
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Pays
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Article
+                            </td>
+                        </tr>
+                        {currentOrder.map((order, index) => (
                             <tr key={order._id}>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     {index + 1}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.name}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.address}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.city}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.zip}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.country}
                                 </td>
                                 {order.line_items.map((item) => (
                                     <div key={item._id} className="flex py-1">
-                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 flex items-center  gap-1">
                                             {item.quantity}
 
                                         </td>
-                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 flex items-center  gap-1">
                                             {item.price_data.product_data.name}
                                         </td>
                                     </div>
@@ -104,11 +127,11 @@ export default function Order() {
                                     </Link>
                                 </td>
                             </tr>
-                            ))}
-                            </tbody>
+                        ))}
+                        </tbody>
 
                     </table>
-                        </div>
+                    </div>
                     <div className="flex justify-center mt-8 mb-4">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button

@@ -100,53 +100,63 @@ export default function Products() {
                     <div className="overflow-x-auto">
                     <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
                         <thead>
-                        {/* Table headers here */}
                         </thead>
 
-                            <tbody className="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-gray-200">
+                        <tr>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Numéro
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Image
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900 truncate max-w-md">Titre</td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900 truncate max-w-md">Description</td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Prix</td>
+                        </tr>
                             {currentProducts.map((product, index) => (
-                            <tr key={product._id}>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {index + 1}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                                <tr key={product._id}>
+                                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                        {index + 1}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
 
-                                    {product.images && product.images.map((image, index) => (
+                                        {product.images && product.images.map((image, index) => (
 
-                                        <img key={image._id}
-                                             className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
-                                             src={image}
-                                             alt={product.title}
-                                        />
+                                            <img key={image._id}
+                                                 className="h-10 w-10 mr-2 rounded-full object-cover object-center bg-gray-200"
+                                                 src={image}
+                                                 alt={product.title}
+                                            />
 
-                                    ))}
+                                        ))}
 
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.title}</td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.price} €</td>
-                                <td className="whitespace-nowrap px-4 py-2 gap-4 ">
-                                    <Link
-                                        href={'/products/edit/' + product._id}
-                                        className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-                                    >
-                                        Editer
-                                    </Link>
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 gap-4">
-                                    <Link
-                                        href={'/products/delete/' + product._id}
-                                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-                                    >
-                                        Supprimer
-                                    </Link>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.title}</td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.price} €</td>
+                                    <td className="whitespace-nowrap px-4 py-2 gap-4 ">
+                                        <Link
+                                            href={'/products/edit/' + product._id}
+                                            className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
+                                        >
+                                            Editer
+                                        </Link>
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 gap-4">
+                                        <Link
+                                            href={'/products/delete/' + product._id}
+                                            className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                        >
+                                            Supprimer
+                                        </Link>
+                                    </td>
+                                </tr>
                             ))}
-                            </tbody>
+                        </tbody>
 
                     </table>
-                        </div>
+                    </div>
                     <div className="flex justify-center mt-8 mb-4">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button
@@ -159,7 +169,7 @@ export default function Products() {
                         ))}
                     </div>
                 </>
-            )}
+                )}
         </div>
 
     </>
@@ -172,4 +182,4 @@ export default function Products() {
             </div>
         </>
     }
-}
+    }

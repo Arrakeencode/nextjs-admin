@@ -80,44 +80,70 @@ export default function Command() {
                         <thead>
                         {/* Table headers here */}
                         </thead>
-                            <tbody className="divide-y divide-gray-200" key={command._id}>
+                        <tbody className="divide-y divide-gray-200" key={command._id}>
+                        <tr>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Numéro
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Nom complet
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Adresse
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Ville
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Zip
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Pays
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+                                Article
+                            </td>
+                        </tr>
                             {currentCommand.map((command, index) => (
-                            <tr key={command._id}>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {index + 1}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {command.name}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {command.address}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {command.city}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {command.zip}
-                                </td>
-                                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    {command.country}
-                                </td>
-                                {command.line_items.map((item) => (
-                                    <div key={item._id} className="flex py-1">
-                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                                            {item.quantity}
+                                <tr key={command._id}>
+                                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-700">
+                                        {index + 1}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        {command.name}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        {command.address}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        {command.city}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        {command.zip}
+                                    </td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        {command.country}
+                                    </td>
+                                    {command.line_items.map((item) => (
+                                        <div key={item._id} className="flex py-1">
+                                            <td className="whitespace-nowrap px-4 py-2 text-gray-700 flex items-center  gap-1">
+                                                {item.quantity}
 
-                                        </td>
-                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                                            {item.price_data.product_data.name}
-                                        </td>
-                                    </div>
-                                ))}
-                                <td>
-                                    <button className="inline-block rounded bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700" onClick={() => updateShippedStatus(command._id)}>Marqué comme expédié</button>
-                                </td>
-                            </tr>
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-2 text-gray-700 flex items-center  gap-1">
+                                                {item.price_data.product_data.name}
+                                            </td>
+                                        </div>
+                                    ))}
+                                    <td>
+                                        <button
+                                            className="inline-block rounded bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700"
+                                            onClick={() => updateShippedStatus(command._id)}>Marqué comme expédié
+                                        </button>
+                                    </td>
+                                </tr>
                             ))}
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                     <div className="flex justify-center mt-8 mb-4">
@@ -132,7 +158,7 @@ export default function Command() {
                         ))}
                     </div>
                 </>
-            )}
+                )}
         </div>
 
     </>
@@ -145,4 +171,4 @@ export default function Command() {
             </div>
         </>
     }
-}
+    }
