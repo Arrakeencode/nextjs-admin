@@ -120,7 +120,7 @@ export default function Command() {
                             </tbody>
                     </table>
                 </div>
-                    <div className="flex justify-center mt-8">
+                    <div className="flex justify-center mt-8 mb-4">
                         {Array.from({length: totalPages}, (_, i) => (
                             <button
                                 key={i}

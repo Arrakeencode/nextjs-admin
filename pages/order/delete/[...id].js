@@ -44,10 +44,10 @@ export default function EditOrder() {
                     <div class="mt-5 flex justify-end gap-3">
                         <button type="button" class="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400"
                                 onClick={goBack}
-                        >Cancel</button>
+                        >Annuler</button>
                         <button type="button" class="flex-1 rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300"
                                 onClick={deleteOrder}
-                        >Delete</button>
+                        >Supprimer</button>
                     </div>
                 </div>
             </div>

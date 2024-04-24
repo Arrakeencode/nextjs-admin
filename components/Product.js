@@ -33,15 +33,19 @@ export default function Product({
             await Promise.all(uploadImagesQueue);
         }
 
-        if (uploadImagesQueue.length >= 2) {
+        if (images.length >= 2 && images.length <= 4) {
             const data = {title, description, price, images, category}
             if (_id) {
                 await axios.put('/api/products', {...data, _id});
                 setRedirect(true)
+                toast.success('Changement réussis')
             } else {
                 await axios.post('/api/products', data);
                 setRedirect(true)
             }
+        }
+        else if( images.length > 4){
+            toast.error('Maximum 4 images')
         }
         else{
             toast.error('Minimum 2 images')
@@ -50,8 +54,8 @@ export default function Product({
 
     async function uploadImages(event){
         const files = event.target?.files;
-        if (files?.length > 3){
-            return ('too much')
+        if (files?.length > 4){
+            return ('maximum 4')
         }else if (files?.length > 0) {
             setIsUploading(true);
             for (const file of files) {
@@ -100,7 +104,9 @@ export default function Product({
                            className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                            placeholder="Raquette Xtry"
                            value={title}
-                           onChange={event => setTitle(event.target.value)}/>
+                           onChange={event => setTitle(event.target.value)}
+                           required={true}
+                    />
 
                 </div>
             </div>
@@ -111,7 +117,9 @@ export default function Product({
                     <select id="example3"
                             className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                             value={category} onChange={event => setCategory(event.target.value)}
-                            >
+                            required={true}
+                    >
+                        <option value="" disabled>-- Choisissez une catégorie --</option>
                         <option value="raquette">Raquette</option>
                         <option value="balle">Balle de Tennis</option>
                         <option value="sac">Sac</option>
@@ -184,7 +192,9 @@ export default function Product({
                               className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                               placeholder="Superbe raquette de tennis"
                               value={description}
-                              onChange={event => setDescription(event.target.value)}/>
+                              onChange={event => setDescription(event.target.value)}
+                              required={true}
+                    />
                 </div>
             </div>
             <div className="mx-auto my-4">
@@ -195,7 +205,9 @@ export default function Product({
                            className="block w-full rounded-md border-red-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                            placeholder="0"
                            value={price}
-                           onChange={event => setPrice(event.target.value)}/>
+                           onChange={event => setPrice(event.target.value)}
+                           required={true}
+                    />
                 </div>
             </div>
             <button className="inline-block rounded bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700" type="submit">Enregistrer</button>
