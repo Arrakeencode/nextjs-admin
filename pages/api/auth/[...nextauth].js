@@ -29,11 +29,9 @@ export const authOptions = {
   ],
   callbacks:{
     jwt: async ({ token, user }) =>{
-      console.log(token)
       if (user) {
         token.uid = user;
       }
-
       return token
     },
     session: async ({ session, token }) => {
@@ -44,7 +42,7 @@ export const authOptions = {
     },
   },
   session: {
-    jwt: true,
+    strategy: 'jwt',
   },
 }
 

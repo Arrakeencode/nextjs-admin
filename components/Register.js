@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 
 export default function Register ({setLogin})  {
@@ -17,12 +17,12 @@ export default function Register ({setLogin})  {
         const password = e.target[1].value;
 
         if (!isValidEmail(email)) {
-            setError("Email is invalid");
+            toast.error("Email invalide");
             return;
         }
 
         if (!password || password.length < 4) {
-            setError("Password is invalid");
+            toast.error("Mot de passe trop petit");
             return;
         }
 

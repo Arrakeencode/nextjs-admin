@@ -4,10 +4,14 @@ import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
-        const { email, password } = req.body;
+        const { email, password, admin } = req.body;
 
         try {
             await mongooseConnect();
+
+            if (admin === true) {
+                return res.status(400).json({ error: "You cannot register as an admin" });
+            }
 
             const existingUser = await User.findOne({ email });
 

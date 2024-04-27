@@ -13,18 +13,16 @@ export default function Home() {
 
 
   useEffect(() => {
-    axios.get('/api/order').then(response => {
+    if (session && session.userData.isAdmin) {
+      axios.get('/api/order').then(response => {
+        setOrder(response.data);
+      });
 
-      setOrder(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get('/api/command').then(response => {
-
-      setCommand(response.data);
-    });
-  }, []);
-
+      axios.get('/api/command').then(response => {
+        setCommand(response.data);
+      });
+    }
+  }, [session]);
 
   const orderPrice = order.reduce((acc, orders) => {
     const totalOrderPrice = orders.line_items.reduce((acc, item) => acc + (item.quantity * item.price_data.unit_amount / 100), 0);
