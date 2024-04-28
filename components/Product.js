@@ -42,6 +42,7 @@ export default function Product({
             } else {
                 await axios.post('/api/products', data);
                 setRedirect(true)
+                toast.success('Produit ajouté')
             }
         }
         else if( images.length > 4){

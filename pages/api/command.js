@@ -18,6 +18,8 @@ export default async function handle(req, res) {
     if (method === 'GET') {
         if (req.query?.id) {
             res.json(await Command.findOne({ _id: req.query.id }));
+        } else if (req.query?.shipped === 'true') {
+            res.json(await Command.find({ shipped: true }));
         } else {
             res.json(await Command.find({ shipped: false }));
         }
@@ -27,5 +29,12 @@ export default async function handle(req, res) {
         const { shipped, _id } = req.body;
         await Command.updateOne({ _id }, { shipped });
         res.json(true);
+    }
+
+    if (method === 'DELETE') {
+        if (req.query?.id) {
+            await Command.deleteOne({_id: req.query.id});
+            res.json(true);
+        }
     }
 }

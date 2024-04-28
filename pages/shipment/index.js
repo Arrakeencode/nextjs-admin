@@ -24,7 +24,7 @@ export default function Command() {
     };
 
     useEffect(() => {
-        axios.get('/api/command').then(response => {
+        axios.get('/api/command', { params: { shipped: false } }).then(response => {
 
             setCommand(response.data);
             setLoading(false);
@@ -35,7 +35,7 @@ export default function Command() {
         try {
             await axios.put('/api/command', { shipped: true, _id: id });
             toast.success("Le statut d'expédition a été mis à jour avec succès.")
-            axios.get('/api/command')
+            axios.get('/api/command', { params: { shipped: false } })
                 .then(response => {
                     setCommand(response.data);
                 })

@@ -23,7 +23,7 @@ export default function Order() {
     };
 
     useEffect(() => {
-        axios.get('/api/order').then(response => {
+        axios.get('/api/command', { params: { shipped: true } }).then(response => {
 
             setOrder(response.data);
             setLoading(false);

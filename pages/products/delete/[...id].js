@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 export default function EditProduct() {
@@ -24,6 +25,7 @@ export default function EditProduct() {
     async function deleteProduct() {
         await axios.delete('/api/products?id=' +id);
         goBack();
+        toast.success('Produit supprimé')
     }
     return <>
 

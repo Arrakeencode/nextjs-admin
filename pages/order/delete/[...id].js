@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 export default function EditOrder() {
@@ -12,7 +13,7 @@ export default function EditOrder() {
         if (!id) {
             return;
         }
-        axios.get('/api/order?id=' + id).then(response => {
+        axios.get('/api/command?id=' + id).then(response => {
             setOrderInfo(response.data)
         })
     }, [id])
@@ -22,8 +23,9 @@ export default function EditOrder() {
     }
 
     async function deleteOrder() {
-        await axios.delete('/api/order?id=' +id);
+        await axios.delete('/api/command?id=' +id);
         goBack();
+        toast.success('Commande supprimé')
     }
     return <>
 

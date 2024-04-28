@@ -14,11 +14,11 @@ export default function Home() {
 
   useEffect(() => {
     if (session && session.userData.isAdmin) {
-      axios.get('/api/order').then(response => {
+      axios.get('/api/command', { params: { shipped: true } }).then(response => {
         setOrder(response.data);
       });
 
-      axios.get('/api/command').then(response => {
+      axios.get('/api/command', { params: { shipped: false } }).then(response => {
         setCommand(response.data);
       });
     }
