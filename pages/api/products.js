@@ -6,6 +6,8 @@ const secret = process.env.NEXTAUTH_SECRET;
 export default async function handle(req, res) {
     const { method } = req;
 
+    await mongooseConnect();
+
     if (method === 'GET') {
         if (req.query?.id) {
             res.json(await Product.findOne({ _id: req.query.id }));
@@ -19,7 +21,7 @@ export default async function handle(req, res) {
     if (!token || !token.sub) {
         return res.status(401).json({ message: 'Accès non autorisé. Jeton manquant ou invalide.' });
     }
-    await mongooseConnect();
+
 
     if (method === 'POST') {
         const { title, description, price, images, category } = req.body;
