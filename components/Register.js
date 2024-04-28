@@ -5,12 +5,10 @@ export default function Register ({setLogin})  {
     const handleRegister = () => {
         setLogin(true);
     };
-
     const isValidEmail = (email) => {
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return emailRegex.test(email);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const email = e.target[0].value;
@@ -46,9 +44,6 @@ export default function Register ({setLogin})  {
             }
             else if (res.status === 500) {
                 toast.error("Ce compte existe déja");
-            }
-            else if (res.status === 200) {
-                toast.error("");
             }
         } catch (error) {
             toast.error("Erreur");
