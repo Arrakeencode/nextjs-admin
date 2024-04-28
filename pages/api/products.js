@@ -1,6 +1,8 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {Product} from "@/models/Product";
+import {getToken} from "next-auth/jwt";
 
+const secret = process.env.NEXTAUTH_SECRET;
 export default async function handle(req, res) {
     const { method } = req;
 
@@ -8,13 +10,17 @@ export default async function handle(req, res) {
 
     if (method === 'GET') {
         if (req.query?.id) {
-            res.json(await Product.findOne({ _id: req.query.id }));
+           return res.json(await Product.findOne({ _id: req.query.id }));
         } else {
-            res.json(await Product.find());
+           return  res.json(await Product.find());
         }
     }
 
+    const token = await getToken({ req, secret });
 
+    if (!token || !token.sub) {
+        return res.status(401).json({ message: 'Accès non autorisé. Jeton manquant ou invalide.' });
+    }
 
 
     if (method === 'POST') {
