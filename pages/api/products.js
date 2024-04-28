@@ -10,7 +10,6 @@ export default async function handle(req, res) {
         if (req.query?.id) {
             res.json(await Product.findOne({ _id: req.query.id }));
         } else {
-
             res.json(await Product.find());
         }
     }

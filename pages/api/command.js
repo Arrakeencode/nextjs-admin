@@ -20,8 +20,10 @@ export default async function handle(req, res) {
             res.json(await Command.findOne({ _id: req.query.id }));
         } else if (req.query?.shipped === 'true') {
             res.json(await Command.find({ shipped: true }));
-        } else {
+        } else if (req.query?.shipped === 'false') {
             res.json(await Command.find({ shipped: false }));
+        } else {
+            res.json(await Command.find())
         }
     }
 
