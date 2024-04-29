@@ -22,7 +22,6 @@ export default async function handle(req, res) {
         return res.status(401).json({ message: 'Accès non autorisé. Jeton manquant ou invalide.' });
     }
 
-
     if (method === 'POST') {
         const { title, description, price, images, category } = req.body;
 

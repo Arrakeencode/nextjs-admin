@@ -98,13 +98,13 @@ export default function Order() {
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.address}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 capitalize">
                                     {order.city}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {order.zip}
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 capitalize">
                                     {order.country}
                                 </td>
                                 {order.line_items.map((item) => (

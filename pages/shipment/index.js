@@ -115,13 +115,13 @@ export default function Command() {
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                         {command.address}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 capitalize">
                                         {command.city}
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                         {command.zip}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 capitalize">
                                         {command.country}
                                     </td>
                                     {command.line_items.map((item) => (
